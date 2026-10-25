@@ -141,17 +141,18 @@ function createViz(data, songCategories) {
     const xScale = d3.scaleLinear().range([0, width]);
     const yScale = d3.scaleLinear().range([innerHeight, 0]);
     const colorScale = d3
-      .scaleOrdinal()
-      .domain(model.songCategories)
-      .range([
-        "#E76F51",
-        "#F4A261",
-        "#E9C46A",
-        "#2A9D8F",
-        "#264653",
-        "#9B5DE5",
-        "#F15BB5",
-      ]);
+  .scaleOrdinal()
+  .domain(model.songCategories)
+  .range([
+    "#E76F51",
+    "#F4A261",
+    "#E9C46A",
+    "#2A9D8F",
+    "#264653",
+    "#9B5DE5",
+    "#F15BB5",
+    "#8ECAE6",
+  ]);
     const stack = d3
       .stack()
       .keys(model.songCategories)
@@ -370,8 +371,12 @@ function initEvents(dom, model, viz) {
       // 7. Display the tooltip
       viz.tooltip
         .text(lines.join("\n"))
-        .style("left", `${event.clientX + 15}px`)
-        .style("top", `${event.clientY + 15}px`)
+        .style("left",
+             `${Math.max(0, Math.min(event.clientX + 15, window.innerWidth - 230))}px`
+              )
+        .style("top",
+             `${Math.max(0, Math.min(event.clientY + 15, window.innerHeight - 260))}px`
+              )
         .style("display", "block");
     })
 
